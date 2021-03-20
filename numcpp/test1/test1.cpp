@@ -30,9 +30,50 @@ int main()
     std::wcout << L"matrix change type to double a1 : " << std::endl;
     a2.print();
 
-    auto a3 = nc::random::randFloat<double>({ 10, 10 }, 0, 1);
+    nc::random::seed(123);
+    auto a3 = nc::random::rand<double>({ 3, 2 });
     std::wcout << L"matrix generated a3 : " << std::endl;
     a3.print();
+
+    auto a4 = nc::random::choice(a3, 4);
+    a4.reshape(2, 2);
+    std::wcout << L"matrix a4 : " << std::endl;
+    a4.print();
+
+    nc::NdArray<int> a = { {1, 2}, {3, 4}, {5, 6} };
+    nc::NdArray<int> b = a * 10;
+    nc::NdArray<int> c = a * 100;
+
+    std::wcout << L"matrix a : " << std::endl;
+    a.print();
+    std::wcout << L"matrix b : " << std::endl;
+    b.print();
+    std::wcout << L"matrix c : " << std::endl;
+    c.print();
+
+    std::vector< nc::NdArray<int> > v_a;
+    v_a.push_back(nc::stack({ a, b, c }, nc::Axis::ROW));
+    //std::wcout << L"matrix " << v_a.size() << " : " << std::endl;
+    //v_a.back().print();
+
+    v_a.push_back(nc::vstack({ a, b, c }));
+    std::wcout << L"matrix " << v_a.size() << " : " << std::endl;
+    v_a.back().print();
+
+    v_a.push_back(nc::hstack({ a, b, c }));
+    std::wcout << L"matrix " << v_a.size() << " : " << std::endl;
+    v_a.back().print();
+
+    v_a.push_back(nc::append(a, b, nc::Axis::COL));
+    std::wcout << L"matrix " << v_a.size() << " : " << std::endl;
+    v_a.back().print();
+
+    auto tempDir = boost::filesystem::temp_directory_path();
+    auto tempTxt = (tempDir / "temp.txt").string();
+    std::cout << "path " << tempTxt << std::endl;
+    v_a.back().tofile(tempTxt, "\n");
+
+
 
 	return 0;
 }
