@@ -1,16 +1,13 @@
 #include"NumCpp.hpp"
 #include"boost/filesystem.hpp"
 
+
 #include<iostream>
+
 
 int main()
 {
 	std::wcout << L"start" << std::endl;
-
-    CpGnuplot plot(L"C:\\Program Files\\gnuplot\\bin\\wgnuplot.exe");
-
-    // Gnuplot의 splot 명령을 사용하여 그래프를 그린다.
-    plot.cmd(L"splot [x=-3:3] [y=-3:3] sin(x) * cos(y)");
 
     // Containers
     nc::NdArray<int> a0 = { {1, 2}, {3, 4} };
