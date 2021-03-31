@@ -1,9 +1,12 @@
 #include"NumCpp.hpp"
 #include"boost/filesystem.hpp"
 
+#include <include/opencv2/opencv.hpp>
+#include <modules/highgui/include/opencv2/highgui.hpp>
 
 #include<iostream>
 
+#pragma comment(lib, "opencv_world451d.lib")
 
 int main()
 {
@@ -76,6 +79,23 @@ int main()
     v_a.back().tofile(tempTxt, "\n");
 
 
+    ///////////////////////
+    std::wcout << "OpenCV Version : " << CV_VERSION << std::endl;
+    cv::namedWindow("img-raw", cv::WINDOW_AUTOSIZE);
+    cv::namedWindow("img-gray", cv::WINDOW_AUTOSIZE);
+    cv::namedWindow("img-canny", cv::WINDOW_AUTOSIZE);
 
+    cv::Mat rawimg, grayimg, cannyimg;
+    rawimg = imread("d:\\WAD-A64U.png", IMREAD_COLOR);
+    imshow("img-raw", rawimg);
+
+    cvtColor(rawimg, grayimg, cv::COLOR_BGR2GRAY);
+    Canny(grayimg, cannyimg, 10, 100, 3, true);
+    imshow("img-gray", grayimg);
+    imshow("img-canny", cannyimg);
+
+    waitKey(0);
+    destroyAllWindows();
+    //
 	return 0;
 }
