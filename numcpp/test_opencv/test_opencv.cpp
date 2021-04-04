@@ -70,7 +70,7 @@
 #pragma comment(lib,"zlibd.lib")
 
 #else
-#pragma comment(lib,"ade.lib")
+//#pragma comment(lib,"ade.lib")
 #pragma comment(lib,"IlmImf.lib")
 #pragma comment(lib,"ippicvmt.lib")
 #pragma comment(lib,"ippiw.lib")
@@ -83,87 +83,118 @@
 #pragma comment(lib,"libtiff.lib")
 #pragma comment(lib,"libwebp.lib")
 
-#pragma comment(lib,"opencv_alphamat451.lib")
-#pragma comment(lib,"opencv_aruco451.lib")
-#pragma comment(lib,"opencv_bgsegm451.lib")
-#pragma comment(lib,"opencv_bioinspired451.lib")
-#pragma comment(lib,"opencv_calib3d451.lib")
-#pragma comment(lib,"opencv_ccalib451.lib")
+//#pragma comment(lib,"opencv_alphamat451.lib")
+//#pragma comment(lib,"opencv_aruco451.lib")
+//#pragma comment(lib,"opencv_bgsegm451.lib")
+//#pragma comment(lib,"opencv_bioinspired451.lib")
+//#pragma comment(lib,"opencv_calib3d451.lib")
+//#pragma comment(lib,"opencv_ccalib451.lib")
 #pragma comment(lib,"opencv_core451.lib")
-#pragma comment(lib,"opencv_datasets451.lib")
-#pragma comment(lib,"opencv_dnn_objdetect451.lib")
-#pragma comment(lib,"opencv_dnn_superres451.lib")
-#pragma comment(lib,"opencv_dnn451.lib")
-#pragma comment(lib,"opencv_dpm451.lib")
-#pragma comment(lib,"opencv_face451.lib")
-#pragma comment(lib,"opencv_features2d451.lib")
-#pragma comment(lib,"opencv_flann451.lib")
-#pragma comment(lib,"opencv_fuzzy451.lib")
-#pragma comment(lib,"opencv_gapi451.lib")
-#pragma comment(lib,"opencv_hfs451.lib")
+//#pragma comment(lib,"opencv_datasets451.lib")
+//#pragma comment(lib,"opencv_dnn_objdetect451.lib")
+//#pragma comment(lib,"opencv_dnn_superres451.lib")
+//#pragma comment(lib,"opencv_dnn451.lib")
+//#pragma comment(lib,"opencv_dpm451.lib")
+//#pragma comment(lib,"opencv_face451.lib")
+//#pragma comment(lib,"opencv_features2d451.lib")
+//#pragma comment(lib,"opencv_flann451.lib")
+//#pragma comment(lib,"opencv_fuzzy451.lib")
+//#pragma comment(lib,"opencv_gapi451.lib")
+//#pragma comment(lib,"opencv_hfs451.lib")
 #pragma comment(lib,"opencv_highgui451.lib")
-#pragma comment(lib,"opencv_img_hash451.lib")
+//#pragma comment(lib,"opencv_img_hash451.lib")
 #pragma comment(lib,"opencv_imgcodecs451.lib")
 #pragma comment(lib,"opencv_imgproc451.lib")
-#pragma comment(lib,"opencv_intensity_transform451.lib")
-#pragma comment(lib,"opencv_line_descriptor451.lib")
-#pragma comment(lib,"opencv_mcc451.lib")
-#pragma comment(lib,"opencv_ml451.lib")
-#pragma comment(lib,"opencv_objdetect451.lib")
-#pragma comment(lib,"opencv_optflow451.lib")
-#pragma comment(lib,"opencv_phase_unwrapping451.lib")
-#pragma comment(lib,"opencv_photo451.lib")
-#pragma comment(lib,"opencv_plot451.lib")
-#pragma comment(lib,"opencv_quality451.lib")
-#pragma comment(lib,"opencv_rapid451.lib")
-#pragma comment(lib,"opencv_reg451.lib")
-#pragma comment(lib,"opencv_rgbd451.lib")
-#pragma comment(lib,"opencv_saliency451.lib")
-#pragma comment(lib,"opencv_shape451.lib")
-#pragma comment(lib,"opencv_stereo451.lib")
-#pragma comment(lib,"opencv_stitching451.lib")
-#pragma comment(lib,"opencv_structured_light451.lib")
-#pragma comment(lib,"opencv_superres451.lib")
-#pragma comment(lib,"opencv_surface_matching451.lib")
-#pragma comment(lib,"opencv_text451.lib")
-#pragma comment(lib,"opencv_tracking451.lib")
-#pragma comment(lib,"opencv_video451.lib")
-#pragma comment(lib,"opencv_videoio451.lib")
-#pragma comment(lib,"opencv_videostab451.lib")
-#pragma comment(lib,"opencv_xfeatures2d451.lib")
-#pragma comment(lib,"opencv_ximgproc451.lib")
-#pragma comment(lib,"opencv_xobjdetect451.lib")
-#pragma comment(lib,"opencv_xphoto451.lib")
+//#pragma comment(lib,"opencv_intensity_transform451.lib")
+//#pragma comment(lib,"opencv_line_descriptor451.lib")
+//#pragma comment(lib,"opencv_mcc451.lib")
+//#pragma comment(lib,"opencv_ml451.lib")
 
-#pragma comment(lib,"quirc.lib")
+//#pragma comment(lib,"opencv_objdetect451.lib")
+//#pragma comment(lib,"opencv_optflow451.lib")
+//#pragma comment(lib,"opencv_phase_unwrapping451.lib")
+//#pragma comment(lib,"opencv_photo451.lib")
+//#pragma comment(lib,"opencv_plot451.lib")
+//#pragma comment(lib,"opencv_quality451.lib")
+//#pragma comment(lib,"opencv_rapid451.lib")
+//#pragma comment(lib,"opencv_reg451.lib")
+//#pragma comment(lib,"opencv_rgbd451.lib")
+//#pragma comment(lib,"opencv_saliency451.lib")
+//#pragma comment(lib,"opencv_shape451.lib")
+//#pragma comment(lib,"opencv_stereo451.lib")
+//#pragma comment(lib,"opencv_stitching451.lib")
+//#pragma comment(lib,"opencv_structured_light451.lib")
+//#pragma comment(lib,"opencv_superres451.lib")
+//#pragma comment(lib,"opencv_surface_matching451.lib")
+//#pragma comment(lib,"opencv_text451.lib")
+//#pragma comment(lib,"opencv_tracking451.lib")
+//#pragma comment(lib,"opencv_video451.lib")
+//#pragma comment(lib,"opencv_videoio451.lib")
+//#pragma comment(lib,"opencv_videostab451.lib")
+//#pragma comment(lib,"opencv_xfeatures2d451.lib")
+//#pragma comment(lib,"opencv_ximgproc451.lib")
+//#pragma comment(lib,"opencv_xobjdetect451.lib")
+//#pragma comment(lib,"opencv_xphoto451.lib")
+
+//#pragma comment(lib,"quirc.lib")
 #pragma comment(lib,"zlib.lib")
-
-
 #endif // _DEBUG
+
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
-using namespace cv;
-using namespace std;
+
+void colorReduce(const cv::Mat& image, cv::Mat& result, int div)
+{
+	int nl = image.rows; // 행 개수
+	std::cout << image.channels() << std::endl; // 이미지의 채널 수 확인, 컬러 영상인 경우 3, 흑백 영상인 경우 1. 
+	// 각 행의 원소 총 개수
+	int nc = image.cols * image.channels();
+
+	for (int j = 0; j < nl; j++)
+	{
+		// j행의 주소 얻기
+		const uchar* data_in = image.ptr<uchar>(j);
+		uchar* data_out = result.ptr<uchar>(j);
+
+		for (int i = 0; i < nc; i++)
+		{
+			// 각 화소 처리
+			data_out[i] = data_in[i] / div * div + div / 2;
+		}
+	}
+}
 
 int main()
 {
-	cout << "OpenCV Version : " << CV_VERSION << endl;
-	namedWindow("img-raw", cv::WINDOW_AUTOSIZE);
-	namedWindow("img-gray", cv::WINDOW_AUTOSIZE);
-	namedWindow("img-canny", cv::WINDOW_AUTOSIZE);
+	std::cout << "OpenCV Version : " << CV_VERSION << std::endl;
 
-	Mat rawimg, grayimg, cannyimg;
-	rawimg = imread("my-neighbour-totoro-1108x0-c-default.jpg", IMREAD_COLOR);
-	imshow("img-raw", rawimg);
+	//opencv_highgui451.lib : namedWindow, imshow, destroyAllWindows, waitKey
+	cv::namedWindow("img-raw", cv::WINDOW_AUTOSIZE);
+	//cv::namedWindow("img-gray", cv::WINDOW_AUTOSIZE);
+	//cv::namedWindow("img-canny", cv::WINDOW_AUTOSIZE);
 
-	cvtColor(rawimg, grayimg, cv::COLOR_BGR2GRAY);
-	Canny(grayimg, cannyimg, 10, 100, 3, true);
-	imshow("img-gray", grayimg);
-	imshow("img-canny", cannyimg);
+	cv::Mat rawimg, grayimg, cannyimg, subimag;
 
-	waitKey(0);
-	destroyAllWindows();
+	//opencv_imgcodecs451.lib : imread, imwrite
+	rawimg = cv::imread("C:\\job\\test\\test.cpp\\numcpp\\test_opencv\\my-neighbour-totoro-1108x0-c-default.jpg", cv::IMREAD_COLOR);
+	cv::imshow("img-raw", rawimg);
+	
+	//cv::split(rawimg, &subimag);
+
+	subimag.create(rawimg.rows, rawimg.cols, rawimg.type());
+	colorReduce(rawimg, subimag, 64);
+	cv:imshow("subimag", subimag);
+	
+	//opencv_imgproc451.ib : cvtColor
+	//cv::cvtColor(rawimg, grayimg, cv::COLOR_BGR2GRAY);
+	//cv::Canny(grayimg, cannyimg, 10, 100, 3, true);
+	//cv::imshow("img-gray", grayimg);
+	//cv::imshow("img-canny", cannyimg);
+
+	std::cout << "press any key !" << std::endl;
+	cv::waitKey(0);
+	cv::destroyAllWindows();
 
 	return 0;
 }
